@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import TodoList from "./TodoList";
-import { todo } from "node:test";
 
 const mockTodos = [
   {
