@@ -19,16 +19,6 @@ const messages: UserMessage[] = [
         message: "I'm good, thanks!",
         sentAt: "2020-01-01T12:10:00Z",
       },
-      {
-        id: 4,
-        message: "What about you?",
-        sentAt: "2020-01-01T12:15:00Z",
-      },
-      {
-        id: 5,
-        message: "I'm doing well too.",
-        sentAt: "2020-01-01T12:20:00Z",
-      },
     ],
   },
   {
@@ -48,16 +38,6 @@ const messages: UserMessage[] = [
         id: 3,
         message: "I'm good, thanks!",
         sentAt: "2020-01-01T12:10:00Z",
-      },
-      {
-        id: 4,
-        message: "What about you?",
-        sentAt: "2020-01-01T12:15:00Z",
-      },
-      {
-        id: 5,
-        message: "I'm doing well too.",
-        sentAt: "2020-01-01T12:20:00Z",
       },
     ],
   },
@@ -79,10 +59,25 @@ const messages: UserMessage[] = [
         message: "I'm good, thanks!",
         sentAt: "2020-01-01T12:10:00Z",
       },
+    ],
+  },
+  {
+    userId: 4,
+    messages: [
       {
-        id: 4,
-        message: "What about you?",
-        sentAt: "2020-01-01T12:15:00Z",
+        id: 1,
+        message: "Hello!",
+        sentAt: "2020-01-01T12:00:00Z",
+      },
+      {
+        id: 2,
+        message: "How are you?",
+        sentAt: "2020-01-01T12:05:00Z",
+      },
+      {
+        id: 3,
+        message: "I'm good, thanks!",
+        sentAt: "2020-01-01T12:10:00Z",
       },
     ],
   },

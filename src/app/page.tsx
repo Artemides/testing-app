@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { User, UserMessage } from "../../mocks/types";
 import { useEffect, useState } from "react";
-import { response } from "msw";
 
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
@@ -69,13 +68,14 @@ export default function Home() {
         />
       </div>
 
-      <section id="User Messages" className="grid grid-cols-2 gap-2 mt-4">
-        <div className="flex gap-4 flex-wrap ">
+      <section id="user-section" className="grid grid-cols-2 gap-2 mt-4">
+        <div id="user-list" className="flex gap-4 flex-wrap ">
           {users.map((user) => (
             <div
               key={user.id}
               className="flex flex-col gap-2 items-center p-4 ring-[1px] ring-sky-900/50 rounded-md hover:ring-orange-500 hover:bg-orange-500/10"
               onClick={() => handleSelectUser(user.id)}
+              data-testid="user-element"
             >
               <span>
                 {user.first_name} {user.last_name}
@@ -92,7 +92,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col justify-center gap-2">
+        <div id="user-messages" className="flex flex-col justify-center gap-2">
           {!messages && (
             <p className="text-center text-yellow-300 font-bold">
               This users has not sent any messages yet
