@@ -1,3 +1,4 @@
+import { postTodo } from "@/libs/fetch";
 import { Todo } from "@/types/todo";
 import { useState, FormEvent } from "react";
 
@@ -10,19 +11,15 @@ export default function AddItemForm({ setTodos }: Props) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!item) return;
 
-    setTodos((prev) => {
-      const highestId = [...prev].sort((a, b) => b.id - a.id)[0].id;
-
-      return [
-        ...prev,
-        { userId: 1, title: item, completed: false, id: highestId + 1 },
-      ];
-    });
-
-    setItem("");
+    try {
+      const createdTodo = await postTodo(item);
+      setTodos((prev) => [...prev, createdTodo]);
+      setItem("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import TodosHome from "./page";
 
@@ -16,9 +16,11 @@ describe("Todos Home", () => {
     expect(submitTodoBtn).toBeEnabled();
 
     await userEvent.click(submitTodoBtn);
-    expect(todoInput).toHaveValue("");
-    const todo = await screen.findByText(newTodo);
+    await waitFor(async () => {
+      expect(todoInput).toHaveValue("");
+    });
 
+    const todo = await screen.findByText(newTodo);
     expect(todo).toHaveTextContent(newTodo);
   });
 

@@ -1,5 +1,6 @@
 import { ChangeEvent, MouseEvent } from "react";
 import { Todo } from "@/types/todo";
+import { deleteTodo, putTodo } from "@/libs/fetch";
 
 type Props = {
   todo: Todo;
@@ -8,15 +9,12 @@ type Props = {
 
 export default function TodoItem({ todo, setTodos }: Props) {
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    //const updatedTodo = await updateTodo(todo)
-    setTodos((prevTodos) => [
-      ...prevTodos.filter((prev) => prev.id !== todo.id),
-      { ...todo, completed: !todo.completed },
-    ]);
+    const updatedTodo = await putTodo(todo);
+    setTodos((prevTodos) => [...prevTodos, updatedTodo]);
   };
 
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    //await deleteTodo(todo)
+    await deleteTodo(todo);
     setTodos((prev) => [...prev.filter((td) => td.id !== todo.id)]);
   };
 
