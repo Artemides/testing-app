@@ -1,5 +1,4 @@
 import { Todo } from "@/types/todo";
-import { todo } from "node:test";
 
 export async function fetchTodos() {
   try {
@@ -26,7 +25,45 @@ export const postTodo = async (title: string) => {
     }),
   });
 
-  if (!response.ok) throw Error("posting a new todo failded");
+  const data = await response.json();
+  if (!response.ok) {
+    const { error } = data as { error: string };
+    if (error) throw Error(error);
 
-  return await response.json();
+    throw Error("failed to post a new todo");
+  }
+
+  const newTodo = data as Todo;
+  return newTodo;
+};
+
+export const putTodo = async (todo: Todo) => {
+  const response = await fetch("/api/todoapp/todos/:id", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...todo, completed: !todo.completed }),
+  });
+
+  if (!response.ok) {
+    throw Error("Error updatintg todo");
+  }
+
+  const updatedTodo = await response.json();
+  return updatedTodo as Todo;
+};
+
+export const deleteTodo = async (todo: Todo) => {
+  const response = await fetch(`/api/todoapp/todos/${todo.id}`, {
+    method: "DELETE",
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+  });
+  if (!response.ok) {
+    throw Error("Error deleting todo");
+  }
+  const { id } = await response.json();
+  return id as number;
 };

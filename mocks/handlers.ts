@@ -29,6 +29,13 @@ export const handlers: RestHandler[] = [
 
   rest.post(`/api/todoapp/todos`, async (req, res, ctx) => {
     const { title } = await req.json();
+    if (!title) {
+      return res(
+        ctx.status(400),
+        ctx.json({ error: "empty title is not allowed" })
+      );
+    }
+
     return res(
       ctx.status(200),
       ctx.json({ userId: 1, title, completed: false, id: 5 })
