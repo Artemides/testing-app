@@ -16,7 +16,7 @@ export default function TodoItem({ todo, setTodos }: Props) {
         return [...updatedTodos, updatedTodo];
       });
     } catch (error) {
-      if (error instanceof Error) console.error(error.message);
+      if (error instanceof Error) console.log(error.message);
     }
   };
 
@@ -25,7 +25,7 @@ export default function TodoItem({ todo, setTodos }: Props) {
       await deleteTodo(todo);
       setTodos((prev) => [...prev.filter((td) => td.id !== todo.id)]);
     } catch (error) {
-      if (error instanceof Error) console.error(error.message);
+      if (error instanceof Error) console.log(error.message);
     }
   };
 

@@ -18,7 +18,7 @@ export default function AddItemForm({ setTodos }: Props) {
       setTodos((prev) => [...prev, createdTodo]);
       setItem("");
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 

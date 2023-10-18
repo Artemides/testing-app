@@ -3,10 +3,14 @@ import { Todo } from "@/types/todo";
 export async function fetchTodos() {
   try {
     const response = await fetch("/api/todoapp/todos");
-    const todos = (await response.json()) as Todo[];
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+
+    const todos: Todo[] = await response.json();
     return todos;
   } catch (error) {
-    if (error instanceof Error) console.error(error);
+    if (error instanceof Error) console.log(error);
 
     return [];
   }
