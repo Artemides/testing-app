@@ -9,13 +9,24 @@ type Props = {
 
 export default function TodoItem({ todo, setTodos }: Props) {
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const updatedTodo = await putTodo(todo);
-    setTodos((prevTodos) => [...prevTodos, updatedTodo]);
+    try {
+      const updatedTodo = await putTodo(todo);
+      setTodos((prevTodos) => {
+        const updatedTodos = prevTodos.filter((_todo) => _todo.id !== todo.id);
+        return [...updatedTodos, updatedTodo];
+      });
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
   };
 
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    await deleteTodo(todo);
-    setTodos((prev) => [...prev.filter((td) => td.id !== todo.id)]);
+    try {
+      await deleteTodo(todo);
+      setTodos((prev) => [...prev.filter((td) => td.id !== todo.id)]);
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
   };
 
   return (

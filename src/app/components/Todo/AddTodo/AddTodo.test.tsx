@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import AddItemForm from "./AddTodo";
 import { userEvent } from "@testing-library/user-event";
 const mockSetTodos = jest.fn();
@@ -55,7 +55,9 @@ describe("Add Todo", () => {
       const button = screen.getByRole("button");
       await userEvent.click(button);
 
-      expect(input).toHaveValue("");
+      await waitFor(() => {
+        expect(input).toHaveValue("");
+      });
     });
 
     it("should call setTodos when submitted", async () => {
